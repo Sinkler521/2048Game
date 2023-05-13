@@ -1,0 +1,96 @@
+*{
+    box-sizing: border-box;
+}
+header{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.nav-item{
+    cursor: pointer;
+}
+.nav-link:hover{
+    background-color: #424242;
+    height: 100%;
+}
+.card{
+    max-width: 100px;
+}
+
+.card-title{
+    font-size: 18px;
+}
+.cell{
+    width: 96px;
+    height: 96px;
+    border: 1px double #a9a9a9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4em;
+    background-color: #bec3c9;
+}
+.tile{
+    --shift-y: 0;
+    --shift-x: 2;
+
+    width: 96px;
+    height: 96px;
+    border: 1px double #a9a9a9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4em;
+    font-size: 22px;
+    font-weight: 500;
+    background-color: #e3e3e3;
+    position: absolute;
+    top: calc(var(--shift-y) * (var(--cell-size) + var(--cell-gap)));
+    left: calc(var(--shift-x) * (var(--cell-size) + var(--cell-gap)));
+    transition: 0.2s ease-in;
+    animation: showCell
+}
+.g{
+    justify-content: center;
+}
+.game-col{
+    display: flex;
+    justify-content: center;
+}
+#game_board{
+    --cell-size: 96px;
+    --cell-gap: 10px;
+
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(4, var(--cell-size));
+    grid-template-rows: repeat(4, var(--cell-size));
+    gap: var(--cell-gap);
+    background-color: rgba(210, 215, 222, 0.83)
+}
+
+@keyframes showCell {
+    0%{
+        opacity: 0;
+        scale(0.1)
+    }
+    20%{
+        opacity: 20%;
+        scale(0.2)
+    }
+    40%{
+        opacity: 40%;
+        scale(0.4)
+    }
+    60%{
+        opacity: 60%;
+        scale(0.6)
+    }
+    80%{
+        opacity: 80%;
+        scale(0.8)
+    }
+    100%{
+        opacity: 100%;
+        scale(1)
+    }
+}

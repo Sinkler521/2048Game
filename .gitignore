@@ -1,0 +1,12 @@
+src/.idea
+src/.idea/2048.iml
+src/.idea/vcs.xml
+src/.idea/modules.xml
+src/.idea/workspace.xml
+src/.idea/.gitignore
+src/css/bootstrap.css
+src/css/bootstrap.css.map
+src/html/.idea
+src/js/.idea
+src/js/bootstrap.js
+src/js/bootstrap.js.map

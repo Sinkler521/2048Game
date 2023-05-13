@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2048</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-dark-subtle">
+<div class="container-md shadow border-start border-end pb-5">
+    <header class="navbar bg-dark shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bolder text-secondary fs-2 ms-4 user-select-none">2048</a>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link text-light fs-5" id="new_game">New Game</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary fs-5">Home</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <score>
+        <div class="row mt-4">
+            <div class="col-1"></div>
+            <div class="col-10 d-flex justify-content-center">
+                <div class="card w-25 me-2">
+                    <div class="card-body pt-1 pb-1">
+                        <h5 class="card-title text-center p-0 mt-1 fw-normal">Score</h5>
+                        <p class="card-text text-center mb-2 fw-bolder" id="score"></p>
+                    </div>
+                </div>
+                <div class="card w-25 ms-2">
+                    <div class="card-body pt-1 pb-1">
+                        <h5 class="card-title text-center p-0 mt-1 fw-normal">Highest</h5>
+                        <p class="card-text text-center mb-2 fw-bolder" id="highest_score"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </score>
+    <main>
+        <div class="row mt-3">
+            <div class="col-1"></div>
+            <div class="col-10 game-col">
+                <div id="game_board"></div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </main>
+</div>
+
+<script src="../js/bootstrap.js"></script>
+<script type="module" src="../js/main.js"></script>
+</body>
+</html>
