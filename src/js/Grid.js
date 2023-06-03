@@ -30,17 +30,21 @@ class Grid{
 
     cellUp(){
         this.tile.moveUp()
+        this.tile.moveUp()
         this.tile.createOneTileCaught(true)
     }
     cellDown(){
+        this.tile.moveDown()
         this.tile.moveDown()
         this.tile.createOneTileCaught(true)
     }
     cellLeft(){
         this.tile.moveLeft()
+        this.tile.moveLeft()
         this.tile.createOneTileCaught(true)
     }
     cellRight(){
+        this.tile.moveRight()
         this.tile.moveRight()
         this.tile.createOneTileCaught(true)
     }

@@ -46,7 +46,7 @@ header{
     position: absolute;
     top: calc(var(--shift-y) * (var(--cell-size) + var(--cell-gap)));
     left: calc(var(--shift-x) * (var(--cell-size) + var(--cell-gap)));
-    transition: 0.2s ease-in;
+    transition: 0.25s all ease-in;
     animation: showCell
 }
 .g{
@@ -71,26 +71,26 @@ header{
 @keyframes showCell {
     0%{
         opacity: 0;
-        scale(0.1)
+        transform: scale(0.1)
     }
     20%{
         opacity: 20%;
-        scale(0.2)
+        transform: scale(0.2)
     }
     40%{
         opacity: 40%;
-        scale(0.4)
+        transform: scale(0.4)
     }
     60%{
         opacity: 60%;
-        scale(0.6)
+        transform: scale(0.6)
     }
     80%{
         opacity: 80%;
-        scale(0.8)
+        transform: scale(0.8)
     }
     100%{
         opacity: 100%;
-        scale(1)
+        transform: scale(1)
     }
 }

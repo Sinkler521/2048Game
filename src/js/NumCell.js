@@ -1,13 +1,16 @@
+import {Score} from "./score.js";
 
 class Tile{
     constructor(gridField, tilesList) {
         this.gridField = gridField;
         this.tilesList = tilesList;
+        this.score = new Score()
     }
 
     createOneTile(canBeFour=false){
         let newTile = document.createElement('DIV');
         newTile.classList.add('tile');
+        newTile.style.userSelect = 'none';
 
         // calculating x and y both for visible part on webpage and for this object props
 
@@ -67,18 +70,11 @@ class Tile{
         }
         catch (RangeError){
             console.log('max cells!')
-            return
+            return;
         }
     }
 
-    addScore(cell){
-        let scoreTable = document.getElementById('score');
-        scoreTable.innerText = Number(scoreTable.innerText) + Number(cell.innerText)
-    }
-
     moveUp() {
-        this.tilesList.sort((a, b) => a.y - b.y);
-
         for (let i = 0; i < this.tilesList.length; i++) {
             const cell = this.tilesList[i];
             const currentX = cell.x;
@@ -87,16 +83,24 @@ class Tile{
             for (let j = cell.y - 1; j >= 0; j--) {
                 const occupiedCell = this.tilesList.find(tile => tile.x === currentX && tile.y === j);
 
-                if (!occupiedCell) {
-                    newY = j;
-                } else if (occupiedCell.innerText === cell.innerText) {
-                    occupiedCell.innerText = String(Number(cell.innerText) * 2);
-                    this.addScore(occupiedCell)
-                    this.changeTileColor(occupiedCell)
-                    cell.remove();
-                    this.tilesList.splice(i, 1);
-                    i--;
+                if (occupiedCell) {
+                    const cellsBetween = this.tilesList.filter(tile =>
+                        tile.x === currentX && tile.y > j && tile.y < cell.y);
+
+                    if (cellsBetween.every(tile => !tile.innerText)) {
+                        if (occupiedCell.innerText === cell.innerText) {
+                            occupiedCell.innerText = String(Number(cell.innerText) * 2);
+                            this.score.addScore(occupiedCell)
+                            this.changeTileColor(occupiedCell);
+                            cell.remove();
+                            this.tilesList.splice(i, 1);
+                            i--;
+                        }
+                    }
+
                     break;
+                } else {
+                    newY = j;
                 }
             }
 
@@ -108,9 +112,7 @@ class Tile{
     }
 
     moveDown() {
-        this.tilesList.sort((a, b) => b.y - a.y);
-
-        for (let i = 0; i < this.tilesList.length; i++) {
+        for (let i = this.tilesList.length - 1; i >= 0; i--) {
             const cell = this.tilesList[i];
             const currentX = cell.x;
             let newY = cell.y;
@@ -118,16 +120,24 @@ class Tile{
             for (let j = cell.y + 1; j < 4; j++) {
                 const occupiedCell = this.tilesList.find(tile => tile.x === currentX && tile.y === j);
 
-                if (!occupiedCell) {
-                    newY = j;
-                } else if (occupiedCell.innerText === cell.innerText) {
-                    occupiedCell.innerText = String(Number(cell.innerText) * 2);
-                    this.addScore(occupiedCell)
-                    this.changeTileColor(occupiedCell)
-                    cell.remove();
-                    this.tilesList.splice(i, 1);
-                    i--;
+                if (occupiedCell) {
+                    const cellsBetween = this.tilesList.filter(tile =>
+                        tile.x === currentX && tile.y > cell.y && tile.y < j);
+
+                    if (cellsBetween.every(tile => !tile.innerText)) {
+                        if (occupiedCell.innerText === cell.innerText) {
+                            occupiedCell.innerText = String(Number(cell.innerText) * 2);
+                            this.score.addScore(occupiedCell)
+                            this.changeTileColor(occupiedCell);
+                            cell.remove();
+                            this.tilesList.splice(i, 1);
+                            break;
+                        }
+                    }
+
                     break;
+                } else {
+                    newY = j;
                 }
             }
 
@@ -138,10 +148,7 @@ class Tile{
         }
     }
 
-
     moveLeft() {
-        this.tilesList.sort((a, b) => a.x - b.x);
-
         for (let i = 0; i < this.tilesList.length; i++) {
             const cell = this.tilesList[i];
             const currentY = cell.y;
@@ -150,16 +157,24 @@ class Tile{
             for (let j = cell.x - 1; j >= 0; j--) {
                 const occupiedCell = this.tilesList.find(tile => tile.x === j && tile.y === currentY);
 
-                if (!occupiedCell) {
-                    newX = j;
-                } else if (occupiedCell.innerText === cell.innerText) {
-                    occupiedCell.innerText = String(Number(cell.innerText) * 2);
-                    this.addScore(occupiedCell)
-                    this.changeTileColor(occupiedCell)
-                    cell.remove();
-                    this.tilesList.splice(i, 1);
-                    i--;
+                if (occupiedCell) {
+                    const cellsBetween = this.tilesList.filter(tile =>
+                        tile.y === currentY && tile.x > j && tile.x < cell.x);
+
+                    if (cellsBetween.every(tile => !tile.innerText)) {
+                        if (occupiedCell.innerText === cell.innerText) {
+                            occupiedCell.innerText = String(Number(cell.innerText) * 2);
+                            this.score.addScore(occupiedCell)
+                            this.changeTileColor(occupiedCell);
+                            cell.remove();
+                            this.tilesList.splice(i, 1);
+                            i--;
+                        }
+                    }
+
                     break;
+                } else {
+                    newX = j;
                 }
             }
 
@@ -171,9 +186,7 @@ class Tile{
     }
 
     moveRight() {
-        this.tilesList.sort((a, b) => b.x - a.x);
-
-        for (let i = 0; i < this.tilesList.length; i++) {
+        for (let i = this.tilesList.length - 1; i >= 0; i--) {
             const cell = this.tilesList[i];
             const currentY = cell.y;
             let newX = cell.x;
@@ -181,16 +194,24 @@ class Tile{
             for (let j = cell.x + 1; j < 4; j++) {
                 const occupiedCell = this.tilesList.find(tile => tile.x === j && tile.y === currentY);
 
-                if (!occupiedCell) {
-                    newX = j;
-                } else if (occupiedCell.innerText === cell.innerText) {
-                    occupiedCell.innerText = String(Number(cell.innerText) * 2);
-                    this.addScore(occupiedCell)
-                    this.changeTileColor(occupiedCell)
-                    cell.remove();
-                    this.tilesList.splice(i, 1);
-                    i--;
+                if (occupiedCell) {
+                    const cellsBetween = this.tilesList.filter(tile =>
+                        tile.y === currentY && tile.x > cell.x && tile.x < j);
+
+                    if (cellsBetween.every(tile => !tile.innerText)) {
+                        if (occupiedCell.innerText === cell.innerText) {
+                            occupiedCell.innerText = String(Number(cell.innerText) * 2);
+                            this.score.addScore(occupiedCell)
+                            this.changeTileColor(occupiedCell);
+                            cell.remove();
+                            this.tilesList.splice(i, 1);
+                            break;
+                        }
+                    }
+
                     break;
+                } else {
+                    newX = j;
                 }
             }
 
@@ -200,6 +221,9 @@ class Tile{
             }
         }
     }
+
+
+
 
     changeTileColor(tile){
 
@@ -232,7 +256,7 @@ class Tile{
                 tile.style.backgroundColor = '#4ba37f';
                 break;
             case '2048':
-                tile.style.backgroundColor = '#218f62'
+                tile.style.backgroundColor = '#1d8158'
         }
     }
 }

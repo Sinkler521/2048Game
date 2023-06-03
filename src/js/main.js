@@ -1,11 +1,21 @@
 import {Grid} from "./Grid.js";
+import {Score} from "./score.js";
 
 let buttonNewGame = document.getElementById('new_game');
-let gameBoard = document.getElementById('game_board')
+let gameBoard = document.getElementById('game_board');
+let score = document.getElementById('score')
 let gridObject = new Grid(gameBoard)
+let scoreController = new Score()
+
+document.addEventListener('DOMContentLoaded', function(){
+    gridObject.initiateField();
+})
 
 buttonNewGame.addEventListener('click', () => {
+    scoreController.addGame()
+    scoreController.showMaxScore()
     gridObject.initiateField();
+    score.innerText = '';
 });
 
 document.addEventListener('keydown', function (e){
